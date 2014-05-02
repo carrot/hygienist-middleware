@@ -28,10 +28,10 @@ var app = connect().use(hygienist());
 var server = http.createServer(app).listen(1111)
 ```
 
-If there are some files that you want to be served with their extension, you can pass in a `whitelist` option, which is an array specifying the extension names. For example, if we wanted to serve json files with the extension intact:
+If there are some files that you want to be served with their extension, you can pass in a `whitelist` option, which is a globstar string or array of globstar strings for files you want hygienist to ignore. For example, if we wanted to serve json files with the extension intact:
 
 ```js
-hygienist({ whitelist: ['.json'] })
+hygienist({ whitelist: '*.json' })
 ```
 
 That's it! If you have other ideas or ways you'd like to use hygienist, we'd love to hear them, just open an issue or pull request!
