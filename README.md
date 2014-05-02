@@ -16,7 +16,7 @@ Let's say that you are using [connect](https://github.com/senchalabs/connect) to
 
 ### Usage
 
-Most basic usage example:
+This library can be used with connect, express, and any other server stack that accepts the same middleware format. A very basic usage example:
 
 ```js
 var http = require('http');
