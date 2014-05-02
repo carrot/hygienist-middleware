@@ -23,12 +23,14 @@ var http = require('http');
     connect = require('connect'),
     hygienist = require('hygienist-middleware');
 
-var app = connect().use(hygienist());
+var app = connect()
+  .use(hygienist());
+  .use(connect.static())
 
 var server = http.createServer(app).listen(1111)
 ```
 
-By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via an `extensions` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
+Make sure that hygienist is **above** `connect.static` or it will not work. By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via an `extensions` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
 
 ```js
 hygienist({ extensions: ['*.html', '*.json'] })
