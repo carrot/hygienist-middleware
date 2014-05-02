@@ -23,17 +23,17 @@ var http = require('http');
     connect = require('connect'),
     hygienist = require('hygienist-middleware');
 
-var app = connect()
-  .use(hygienist());
-  .use(connect.static())
+var app = connect().use(hygienist('public'));
 
 var server = http.createServer(app).listen(1111)
 ```
 
-Make sure that hygienist is **above** `connect.static` or it will not work. By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via an `extensions` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
+Hygienist *directly extends [serve-static](https://github.com/expressjs/serve-static)*, the default static router in connect and express, so it also acts as a full static file server. Any arguments that you can pass to serve-static, you can also pass to hygienist, and they will work as expected.
+
+By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via a `clean` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
 
 ```js
-hygienist({ extensions: ['*.html', '*.json'] })
+hygienist('public', { clean: ['*.html', '*.json'] })
 ```
 
 That's it! If you have other ideas or ways you'd like to use hygienist, we'd love to hear them, just open an issue or pull request!
