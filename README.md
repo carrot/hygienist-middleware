@@ -28,10 +28,10 @@ var app = connect().use(hygienist());
 var server = http.createServer(app).listen(1111)
 ```
 
-If there are some files that you want to be served with their extension, you can pass in a `whitelist` option, which is a globstar string or array of globstar strings for files you want hygienist to ignore. For example, if we wanted to serve json files with the extension intact:
+By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via an `extensions` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
 
 ```js
-hygienist({ whitelist: '*.json' })
+hygienist({ extensions: ['*.html', '*.json'] })
 ```
 
 That's it! If you have other ideas or ways you'd like to use hygienist, we'd love to hear them, just open an issue or pull request!
