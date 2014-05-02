@@ -1,6 +1,6 @@
-# hygienist
+# Hygienist Middleware
 
-[![npm](http://img.shields.io/npm/v/hygienist.svg?style=flat)](https://badge.fury.io/js/hygienist) [![tests](http://img.shields.io/travis/carrot/hygienist/master.svg?style=flat)](https://travis-ci.org/carrot/hygienist) [![dependencies](http://img.shields.io/gemnasium/carrot/hygienist.svg?style=flat)](https://david-dm.org/carrot/hygienist)
+[![npm](http://img.shields.io/npm/v/hygienist-middleware.svg?style=flat)](https://badge.fury.io/js/hygienist-middleware) [![tests](http://img.shields.io/travis/carrot/hygienist-middleware/master.svg?style=flat)](https://travis-ci.org/carrot/hygienist-middleware) [![dependencies](http://img.shields.io/gemnasium/carrot/hygienist-middleware.svg?style=flat)](https://david-dm.org/carrot/hygienist-middleware)
 
 Providing clean urls for static sites since 1776
 
@@ -12,7 +12,7 @@ Let's say that you are using [connect](https://github.com/senchalabs/connect) to
 
 ### Installation
 
-`npm install hygienist --save`
+`npm install hygienist-middleware --save`
 
 ### Usage
 
@@ -21,7 +21,7 @@ Most basic usage example:
 ```js
 var http = require('http');
     connect = require('connect'),
-    hygienist = require('hygienist');
+    hygienist = require('hygienist-middleware');
 
 var app = connect().use(hygienist());
 

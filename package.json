@@ -1,5 +1,5 @@
 {
-  "name": "hygienist",
+  "name": "hygienist-middleware",
   "version": "0.0.0",
   "author": "Jeff Escalante <hello@jenius.me>",
   "description": "Providing clean urls for static sites since 1776",
