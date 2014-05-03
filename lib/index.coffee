@@ -1,7 +1,9 @@
-path    = require 'path'
-fs      = require 'fs'
-url     = require 'url'
-_static = require 'serve-static'
+path      = require 'path'
+fs        = require 'fs'
+url       = require 'url'
+minimatch = require 'minimatch'
+_static   = require 'serve-static'
+_         = require 'lodash'
 
 ###*
  * Configures options and returns a middleware function.
@@ -22,15 +24,16 @@ module.exports = (root, opts = {}) ->
   return (req, res, next) ->
     url = url.parse(req.url)
     extension = path.extname(url.pathname)
+    targets = Array.prototype.concat(opts.clean || '*.html')
 
     if extension.length
-      if extension == '.html'
+      if _.any(targets, minimatch.bind(@, (path.basename(url.pathname))))
         res.statusCode = 302
-        res.setHeader('Location', req.url.replace('.html',''))
+        res.setHeader('Location', req.url.replace(extension,''))
         return res.end()
     else
-      if exists_with_extension(root, url.pathname, '.html')
-        req.url = "#{url.pathname}.html#{if url.search then url.search else ''}"
+      test = locate_and_deliver_file(root, url.pathname, targets)
+      if test then req.url = test
 
     _static(root, opts)(req, res, next)
 
@@ -38,11 +41,17 @@ module.exports = (root, opts = {}) ->
  * Tests whether a file exists at a given path with a certain extension.
  *
  * @private
- * @param  {String} root - root path, joined with
+ * @param  {String} root - the base root to look for the file
  * @param  {String} _path - specific file path
- * @param  {String} ext - the extension to be added to the file
+ * @param  {Array} extensions - the extension opts to match files
  * @return {Boolean} whether the file exists or not
 ###
 
-exists_with_extension = (root, _path, ext) ->
-  fs.existsSync("#{path.join(root, _path)}#{ext}")
+locate_and_deliver_file = (root, _path, extensions) ->
+  extensions.some (ext) ->
+    return false if _path.substr(_path.length - 1) == '/'
+    extension = path.extname(ext)
+    file = path.join(root, _path + extension)
+    @out = if fs.existsSync(file) then _path + extension else false
+
+  return @out
