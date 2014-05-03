@@ -89,6 +89,17 @@ describe 'extensions', ->
       res.text.should.equal('{"foo": "bar"}\n')
       done()
 
+  it 'should serve not-matched.js when /not-matched.js is requested', (done) ->
+    chai.request(@app).get('/not-matched.js').res (res) ->
+      res.should.have.status(200)
+      res.should.be.javascript
+      done()
+
+  it 'should error when /not-matched is requested', (done) ->
+    chai.request(@app).get('/not-matched').res (res) ->
+      res.should.have.status(404)
+      done()
+
   it 'should correctly handle nested directories', (done) ->
     chai.request(@app).get('/nested/wow').res (res) ->
       res.should.have.status(200)
