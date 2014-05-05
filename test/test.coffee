@@ -3,9 +3,12 @@ connect = require 'connect'
 describe 'basic', ->
 
   before ->
-    @app = connect().use(hygienist(path.join(base_path, 'basic')))
+    _path = path.join(base_path, 'basic')
+    @app = connect()
+      .use(hygienist(_path))
+      .use(connect.static(_path))
 
-  it 'should wrap static-serve', (done) ->
+  it 'should pass files through to be served', (done) ->
     chai.request(@app).get('/').res (res) ->
       res.should.have.status(200)
       res.should.be.html
@@ -59,7 +62,10 @@ describe 'basic', ->
 describe 'extensions', ->
 
   before ->
-    @app = connect().use(hygienist(path.join(base_path, 'exts'), {clean: ['*.html', '*.json']}))
+    _path = path.join(base_path, 'exts')
+    @app = connect()
+      .use(hygienist(_path, { extensions: ['*.html', '*.json'] }))
+      .use(connect.static(_path))
 
   it 'should serve index.html when /index is requested', (done) ->
     chai.request(@app).get('/index').res (res) ->
@@ -70,6 +76,7 @@ describe 'extensions', ->
 
   it 'should redirect to /index when /index.html is requested', (done) ->
     chai.request(@app).get('/index.html').res (res) ->
+      res.redirects[0].should.match(/index$/)
       res.should.have.status(200)
       res.should.be.html
       res.text.should.equal("<p>hello world!</p>\n")
@@ -84,6 +91,7 @@ describe 'extensions', ->
 
   it 'should redirect to /foo when /foo.json is requested', (done) ->
     chai.request(@app).get('/foo.json').res (res) ->
+      res.redirects[0].should.match(/foo$/)
       res.should.have.status(200)
       res.should.be.json
       res.text.should.equal('{"foo": "bar"}\n')

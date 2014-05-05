@@ -9,11 +9,7 @@ _         = require 'lodash'
  * Configures options and returns a middleware function.
  *
  * Options:
- * - maxAge: Browser cache max age in ms. Default 0
- * - hidden: Allow transfer of hidden files. Default false
- * - redirect: Redirect to trailing / when path is dir. Default true
- * - index: Default filename for directories. Default 'index.html'
- * - clean: Paths to represent as clean urls. Default '*.html'
+ * - extensions: Paths to represent as clean urls. Default '*.html'
  *
  * @param  {String} dir - path to the root directory to server
  * @param  {Object} opts - options object, described above
@@ -24,7 +20,7 @@ module.exports = (root, opts = {}) ->
   return (req, res, next) ->
     url = url.parse(req.url)
     extension = path.extname(url.pathname)
-    targets = Array.prototype.concat(opts.clean || '*.html')
+    targets = Array.prototype.concat(opts.extensions || '*.html')
 
     if extension.length
       if _.any(targets, minimatch.bind(@, (path.basename(url.pathname))))
@@ -32,10 +28,10 @@ module.exports = (root, opts = {}) ->
         res.setHeader('Location', req.url.replace(extension,''))
         return res.end()
     else
-      test = locate_and_deliver_file(root, url.pathname, targets)
+      test = locate_file(root, url.pathname, targets)
       if test then req.url = test
 
-    _static(root, opts)(req, res, next)
+    next()
 
 ###*
  * Tests whether a file exists at a given path with a certain extension.
@@ -47,7 +43,7 @@ module.exports = (root, opts = {}) ->
  * @return {Boolean} whether the file exists or not
 ###
 
-locate_and_deliver_file = (root, _path, extensions) ->
+locate_file = (root, _path, extensions) ->
   extensions.some (ext) ->
     return false if _path.substr(_path.length - 1) == '/'
     extension = path.extname(ext)
