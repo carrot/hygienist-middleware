@@ -23,17 +23,19 @@ var http = require('http');
     connect = require('connect'),
     hygienist = require('hygienist-middleware');
 
-var app = connect().use(hygienist('public'));
+var app = connect()
+  .use(hygienist('public'))
+  .use(connect.static('public'));
 
 var server = http.createServer(app).listen(1111)
 ```
 
-Hygienist *directly extends [serve-static](https://github.com/expressjs/serve-static)*, the default static router in connect and express, so it also acts as a full static file server. Any arguments that you can pass to serve-static, you can also pass to hygienist, and they will work as expected.
+Note that hygienist *does not function as a static server on its own*, it simply modifies the urls in the request or redirects if necessary. You will still need a static server to be added as middleware *after* hygienist. In this example, we use [serve-static](https://github.com/expressjs/serve-static), connect's default static file server. Hygienist does however still need your root path to be passed as an argument. If you aren't a fan of the repetition of passing the root path to multiple middleware, you can find hygienist and several other useful pieces of middleware for serving static sites bundled together in [charge](#).
 
-By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via a `clean` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
+By default, hygienist will only serve `.html` files as clean urls. If you would like to change this behavior, you can override via a `extensions` option, which is a globstar string or array of globstar strings intended to match files you want hygienist to serve as clean urls. For example, if we wanted to serve both html and json files with clean urls:
 
 ```js
-hygienist('public', { clean: ['*.html', '*.json'] })
+hygienist('public', { extensions: ['*.html', '*.json'] })
 ```
 
 That's it! If you have other ideas or ways you'd like to use hygienist, we'd love to hear them, just open an issue or pull request!
