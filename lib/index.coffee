@@ -2,7 +2,6 @@ path      = require 'path'
 fs        = require 'fs'
 url       = require 'url'
 minimatch = require 'minimatch'
-_static   = require 'serve-static'
 _         = require 'lodash'
 
 ###*
