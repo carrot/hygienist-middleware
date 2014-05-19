@@ -2,7 +2,6 @@ path      = require 'path'
 fs        = require 'fs'
 url       = require 'url'
 minimatch = require 'minimatch'
-_         = require 'lodash'
 
 ###*
  * Configures options and returns a middleware function.
@@ -22,7 +21,7 @@ module.exports = (root, opts = {}) ->
     targets = Array.prototype.concat(opts.extensions || '*.html')
 
     if extension.length
-      if _.any(targets, minimatch.bind(@, (path.basename(url.pathname))))
+      if targets.some(minimatch.bind(@, (path.basename(url.pathname))))
         res.statusCode = 302
         res.setHeader('Location', req.url.replace(extension,''))
         return res.end()
@@ -43,10 +42,10 @@ module.exports = (root, opts = {}) ->
 ###
 
 locate_file = (root, _path, extensions) ->
-  extensions.some (ext) ->
-    return false if _path.substr(_path.length - 1) == '/'
-    extension = path.extname(ext)
-    file = path.join(root, _path + extension)
-    @out = if fs.existsSync(file) then _path + extension else false
-
-  return @out
+  if _path.slice(-1) == '/' then return false
+  for e in extensions
+    ext = path.extname(e)
+    if fs.existsSync(path.join(root, _path + ext))
+      return _path + ext
+    else
+      false

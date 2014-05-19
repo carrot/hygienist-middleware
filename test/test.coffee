@@ -22,11 +22,9 @@ describe 'basic', ->
       res.text.should.equal("<p>foo</p>\n")
       done()
 
-  it 'should serve foo.html when /foo/ is requested', (done) ->
+  it 'should not serve foo.html when /foo/ is requested', (done) ->
     chai.request(@app).get('/foo/').res (res) ->
-      res.should.have.status(200)
-      res.should.be.html
-      res.text.should.equal("<p>foo</p>\n")
+      res.should.have.status(404)
       done()
 
   it 'should redirect .html to clean url', (done) ->
