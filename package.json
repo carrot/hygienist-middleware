@@ -28,6 +28,6 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "minimatch": "~0.2.14"
+    "minimatch": "0.3.x"
   }
 }
