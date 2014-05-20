@@ -1,6 +1,6 @@
 {
   "name": "hygienist-middleware",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Jeff Escalante <hello@jenius.me>",
   "description": "Providing clean urls for static sites since 1776",
   "license": "MIT",
