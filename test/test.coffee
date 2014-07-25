@@ -1,4 +1,5 @@
-connect = require 'connect'
+connect      = require 'connect'
+serve_static = require 'serve-static'
 
 describe 'basic', ->
 
@@ -6,7 +7,7 @@ describe 'basic', ->
     _path = path.join(base_path, 'basic')
     @app = connect()
       .use(hygienist(_path))
-      .use(connect.static(_path))
+      .use(serve_static(_path))
 
   it 'should pass files through to be served', (done) ->
     chai.request(@app).get('/').res (res) ->
@@ -63,7 +64,7 @@ describe 'extensions', ->
     _path = path.join(base_path, 'exts')
     @app = connect()
       .use(hygienist(_path, { extensions: ['*.html', '*.json'] }))
-      .use(connect.static(_path))
+      .use(serve_static(_path))
 
   it 'should serve index.html when /index is requested', (done) ->
     chai.request(@app).get('/index').res (res) ->

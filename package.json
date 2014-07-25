@@ -9,28 +9,28 @@
     "url": "https://github.com/carrot/hygienist.git"
   },
   "main": "lib",
+  "dependencies": {
+    "minimatch": "0.4.x"
+  },
   "devDependencies": {
-    "mocha": "*",
-    "chai": "*",
-    "chai-http": "*",
-    "connect": "*",
-    "coffeelint": "*",
-    "istanbul": "*",
-    "mocha-lcov-reporter": "*",
-    "coveralls": "*",
-    "coffee-script": "1.7.x"
+    "chai": "1.x",
+    "chai-http": "0.4.x",
+    "coffee-script": "1.7.x",
+    "coffeelint": "1.x",
+    "connect": "3.x",
+    "coveralls": "2.x",
+    "istanbul": "0.3.x",
+    "mocha": "1.x",
+    "mocha-lcov-reporter": "0.0.1",
+    "serve-static": "1.x"
   },
   "scripts": {
     "test": "npm run lint && mocha",
     "lint": "find lib/ -name '*.coffee' | xargs coffeelint",
     "coverage": "make build; istanbul cover _mocha --report html -- -R spec && open coverage/index.html && make unbuild",
-    "coverage": "make build; istanbul cover _mocha --report html -- -R spec && open coverage/index.html && make unbuild",
     "coveralls": "make build; istanbul cover _mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage; make unbuild"
   },
   "engines": {
     "node": ">=0.10.0"
-  },
-  "dependencies": {
-    "minimatch": "0.3.x"
   }
 }
