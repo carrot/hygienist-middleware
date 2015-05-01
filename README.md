@@ -1,6 +1,8 @@
 # Hygienist Middleware
 
 [![npm](http://img.shields.io/npm/v/hygienist-middleware.svg?style=flat)](https://badge.fury.io/js/hygienist-middleware) [![tests](http://img.shields.io/travis/carrot/hygienist-middleware/master.svg?style=flat)](https://travis-ci.org/carrot/hygienist-middleware) [![coverage](http://img.shields.io/coveralls/carrot/hygienist-middleware.svg?style=flat)](https://coveralls.io/r/carrot/hygienist-middleware) [![dependencies](http://img.shields.io/gemnasium/carrot/hygienist-middleware.svg?style=flat)](https://gemnasium.com/carrot/hygienist-middleware)
+[![devDependencies](https://img.shields.io/david/dev/carrot/hygienist-middleware.svg)](https://gemnasium.com/carrot/hygienist-middleware)
+
 
 Providing clean urls for static sites since 1776
 
