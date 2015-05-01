@@ -10,7 +10,7 @@
   },
   "main": "lib",
   "dependencies": {
-    "minimatch": "0.4.x"
+    "minimatch": "2.0.x"
   },
   "devDependencies": {
     "chai": "1.x",
