@@ -13,7 +13,7 @@
     "minimatch": "2.0.x"
   },
   "devDependencies": {
-    "chai": "2.3.x",
+    "chai": "3.x",
     "chai-http": "1.0.x",
     "coffee-script": "1.9.x",
     "coffeelint": "1.x",
