@@ -10,18 +10,18 @@
   },
   "main": "lib",
   "dependencies": {
-    "minimatch": "2.0.x"
+    "minimatch": "3.0.0"
   },
   "devDependencies": {
     "chai": "3.x",
-    "chai-http": "1.0.x",
-    "coffee-script": "1.9.x",
+    "chai-http": "2.0.1",
+    "coffee-script": "1.10.0",
     "coffeelint": "1.x",
     "connect": "3.x",
     "coveralls": "2.x",
-    "istanbul": "0.3.x",
-    "mocha": "2.2.x",
-    "mocha-lcov-reporter": "0.0.x",
+    "istanbul": "0.4.3",
+    "mocha": "2.4.5",
+    "mocha-lcov-reporter": "1.2.0",
     "serve-static": "1.x"
   },
   "scripts": {
