@@ -14,13 +14,13 @@
   },
   "devDependencies": {
     "chai": "3.x",
-    "chai-http": "2.0.1",
+    "chai-http": "^3.0.0",
     "coffee-script": "1.10.0",
     "coffeelint": "1.x",
     "connect": "3.x",
     "coveralls": "2.x",
-    "istanbul": "0.4.3",
-    "mocha": "2.4.5",
+    "istanbul": "^0.4.4",
+    "mocha": "^3.0.2",
     "mocha-lcov-reporter": "1.2.0",
     "serve-static": "1.x"
   },
